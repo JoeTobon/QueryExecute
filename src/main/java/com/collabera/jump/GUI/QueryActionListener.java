@@ -39,8 +39,9 @@ public class QueryActionListener implements ActionListener {
 				properties.load(new FileInputStream("config.properties"));
 
 				Connection connection = DriverManager.getConnection(properties.getProperty("url"),
-						properties.getProperty("name"), properties.getProperty("password"));
-
+																													properties.getProperty("name"), 
+																													properties.getProperty("password"));
+				
 				if (!connection.isValid(1)) {
 					System.out.println("Please re-enter credentials!");
 				} else {
