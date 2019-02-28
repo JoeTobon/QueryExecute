@@ -3,11 +3,8 @@ package com.collabera.jump.GUI;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.table.*;
 
 public class QueryUI 
 {
@@ -34,7 +31,10 @@ public class QueryUI
         
         JPanel input = buildPanel(actionListener);
         
+        JScrollPane scrollPane = new JScrollPane(buildTable());
+        
         queryFrame.add(input);
+        queryFrame.add(scrollPane);
 
         queryFrame.validate(); 
         queryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +42,17 @@ public class QueryUI
 		return queryFrame;
 	}
 	
+	private static JTable buildTable() {
+		// TODO Auto-generated method stub
+		TableModel dataModel = new AbstractTableModel() {
+	          public int getColumnCount() { return 10; }
+	          public int getRowCount() { return 10;}
+	          public Object getValueAt(int row, int col) { return Integer.valueOf(row*col); }
+	      };
+	      JTable table = new JTable(dataModel);
+		return table;
+	}
+
 	private static JPanel buildPanel(QueryActionListener qActionListener)
 	{
 		//Panel with Buttons
