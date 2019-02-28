@@ -3,6 +3,7 @@ package com.collabera.jump.GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -22,10 +23,12 @@ public class QueryUI {
 		// Create Frame
 		JFrame queryFrame = new JFrame();
 		queryFrame.setTitle("Query Frame");
-		queryFrame.setSize(500, 200);
+		queryFrame.setSize(500, 400);
 		queryFrame.setVisible(true);
-
 		queryFrame.setLayout(new BoxLayout(queryFrame.getContentPane(), BoxLayout.Y_AXIS));
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		queryFrame.setLocation(dim.width/2-queryFrame.getSize().width/2, dim.height/2-queryFrame.getSize().height/2);
 
 		JPanel titleBar = new JPanel();
 		titleBar.setPreferredSize(new Dimension(600, 35));
@@ -38,7 +41,7 @@ public class QueryUI {
 
 		// TextField Definition
 		JTextField textField = new JTextField();
-		textField.setPreferredSize(new Dimension(450, 50));
+		textField.setPreferredSize(new Dimension(450, 30));
 
 		// USE GETPARENT TO GRAB SIZE OF
 		textField.setEditable(true);
@@ -60,7 +63,7 @@ public class QueryUI {
 		display.setSize(400, 400);
 
 		queryFrame.add(display);
-		JLabel lab1 = new JLabel("NEW LABEL");
+		JLabel lab1 = new JLabel("RESULTS");
 		display.add(lab1);
 
 		queryFrame.add(new JScrollPane(table));
@@ -73,7 +76,7 @@ public class QueryUI {
 
 	private static JTable buildTable() {
 		// TODO Auto-generated method stub
-		TableModel dataModel = new ResultsTableModel(10, 10);
+		TableModel dataModel = new ResultsTableModel(0, 0);
 		JTable table = new JTable(dataModel);
 		return table;
 	}
@@ -171,7 +174,7 @@ public class QueryUI {
 		godPanel.add(radioPanel);
 
 		JPanel connectPanel = new JPanel();
-		JButton connectButton = new JButton("CoNnEcT bRo!");
+		JButton connectButton = new JButton("Connect");
 		connectButton.setActionCommand("connect");
 		connectButton.addActionListener(actionListener);
 		connectPanel.add(connectButton);
