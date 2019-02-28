@@ -146,6 +146,12 @@ public class QueryUI
         ButtonGroup dbTypes = new ButtonGroup();
         JRadioButton sqlButton = new JRadioButton("SQL");
         JRadioButton pgButton = new JRadioButton("PostGress");
+        sqlButton.setActionCommand("mysql");
+        sqlButton.addActionListener(actionListener);
+        
+        pgButton.setActionCommand("pg");
+        pgButton.addActionListener(actionListener);
+        
         dbTypes.add(sqlButton);
         dbTypes.add(pgButton);
         radioPanel.add(sqlButton);
