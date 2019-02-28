@@ -12,10 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 
-public class QueryUI 
-{
+public class QueryUI {
 	public static JFrame buildUI() {
 		// Create Frame
 		JFrame queryFrame = new JFrame();
@@ -45,8 +47,10 @@ public class QueryUI
 		textFieldPane.add(textField);
 		queryFrame.add(textFieldPane);
 
+		JTable table = buildTable();
+
 		// Define action for button press
-		QueryActionListener actionListener = new QueryActionListener(textField);
+		QueryActionListener actionListener = new QueryActionListener(textField, table);
 
 		JPanel input = buildPanel(actionListener);
 		input.setSize(100, 100);
@@ -59,10 +63,19 @@ public class QueryUI
 		JLabel lab1 = new JLabel("NEW LABEL");
 		display.add(lab1);
 
+		queryFrame.add(new JScrollPane(table));
+
 		queryFrame.validate();
 		queryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		return queryFrame;
+	}
+
+	private static JTable buildTable() {
+		// TODO Auto-generated method stub
+		TableModel dataModel = new ResultsTableModel(10, 10);
+		JTable table = new JTable(dataModel);
+		return table;
 	}
 
 	private static JPanel buildPanel(QueryActionListener qActionListener) {
@@ -89,88 +102,86 @@ public class QueryUI
 
 		return input;
 	}
-	
-	public static void dbConnectUI() 
-	{
+
+	public static void dbConnectUI() {
 		// TODO Auto-generated method stub
 		JOptionPane jop = new JOptionPane();
-		
+
 		jop.setSize(500, 500);
-		
+
 		JPanel godPanel = new JPanel();
 		godPanel.setLayout(new BoxLayout(godPanel, BoxLayout.Y_AXIS));
-		
+
 		JPanel textPanel = new JPanel();
 		textPanel.setLayout(new GridLayout(2, 2));
-		
+
 		JTextField fieldOne = new JTextField();
-        fieldOne.setEditable(true);
-        fieldOne.setSize(100, 20);
-        fieldOne.setText("");
-        JLabel labelOne = new JLabel("Host:");
-        textPanel.add(labelOne);
-        textPanel.add(fieldOne);
-        
-        JTextField fieldTwo = new JTextField();
-        fieldTwo.setEditable(true);
-        fieldTwo.setSize(100, 20);
-        fieldTwo.setText("");
-        JLabel labelTwo = new JLabel("Port:");
-        textPanel.add(labelTwo);
-        textPanel.add(fieldTwo);
-        
-        JTextField fieldThree = new JTextField();
-        fieldThree.setEditable(true);
-        fieldThree.setSize(100, 20);
-        fieldThree.setText("");
-        JLabel labelThree = new JLabel("User:");
-        textPanel.add(labelThree);
-        textPanel.add(fieldThree);
-        
-        JTextField fieldFour = new JTextField();
-        fieldFour.setEditable(true);
-        fieldFour.setSize(100, 20);
-        fieldFour.setText("");
-        JLabel labelFour = new JLabel("Password:");
-        textPanel.add(labelFour);
-        textPanel.add(fieldFour);
-        //jop.add(textPanel);
-        godPanel.add(textPanel);
-        
-       // Define action for button press
-     	DBConnectActionListener actionListener = new DBConnectActionListener(fieldOne, fieldTwo, fieldThree, fieldFour);
-        
-        JPanel radioPanel = new JPanel();
-        radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
-        
-        ButtonGroup dbTypes = new ButtonGroup();
-        JRadioButton sqlButton = new JRadioButton("SQL");
-        JRadioButton pgButton = new JRadioButton("PostGress");
-        sqlButton.setActionCommand("mysql");
-        sqlButton.addActionListener(actionListener);
-        
-        pgButton.setActionCommand("pg");
-        pgButton.addActionListener(actionListener);
-        
-        dbTypes.add(sqlButton);
-        dbTypes.add(pgButton);
-        radioPanel.add(sqlButton);
-        radioPanel.add(pgButton);
-        godPanel.add(radioPanel);
-        
-        JPanel connectPanel = new JPanel();
-        JButton connectButton = new JButton("CoNnEcT bRo!");
-    	connectButton.setActionCommand("connect");
-     	connectButton.addActionListener(actionListener);
-        connectPanel.add(connectButton);
-        godPanel.add(connectPanel);
-        
-        //jop.add(godPanel);
-        jop.showMessageDialog(null, godPanel,"Configure Connection:", -1);
-        
-     // 
-        
-     
+		fieldOne.setEditable(true);
+		fieldOne.setSize(100, 20);
+		fieldOne.setText("");
+		JLabel labelOne = new JLabel("Host:");
+		textPanel.add(labelOne);
+		textPanel.add(fieldOne);
+
+		JTextField fieldTwo = new JTextField();
+		fieldTwo.setEditable(true);
+		fieldTwo.setSize(100, 20);
+		fieldTwo.setText("");
+		JLabel labelTwo = new JLabel("Port:");
+		textPanel.add(labelTwo);
+		textPanel.add(fieldTwo);
+
+		JTextField fieldThree = new JTextField();
+		fieldThree.setEditable(true);
+		fieldThree.setSize(100, 20);
+		fieldThree.setText("");
+		JLabel labelThree = new JLabel("User:");
+		textPanel.add(labelThree);
+		textPanel.add(fieldThree);
+
+		JTextField fieldFour = new JTextField();
+		fieldFour.setEditable(true);
+		fieldFour.setSize(100, 20);
+		fieldFour.setText("");
+		JLabel labelFour = new JLabel("Password:");
+		textPanel.add(labelFour);
+		textPanel.add(fieldFour);
+		// jop.add(textPanel);
+		godPanel.add(textPanel);
+
+		// Define action for button press
+		DBConnectActionListener actionListener = new DBConnectActionListener(fieldOne, fieldTwo, fieldThree, fieldFour);
+
+		JPanel radioPanel = new JPanel();
+		radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
+
+		ButtonGroup dbTypes = new ButtonGroup();
+		JRadioButton sqlButton = new JRadioButton("SQL");
+		JRadioButton pgButton = new JRadioButton("PostGress");
+		sqlButton.setActionCommand("mysql");
+		sqlButton.addActionListener(actionListener);
+
+		pgButton.setActionCommand("pg");
+		pgButton.addActionListener(actionListener);
+
+		dbTypes.add(sqlButton);
+		dbTypes.add(pgButton);
+		radioPanel.add(sqlButton);
+		radioPanel.add(pgButton);
+		godPanel.add(radioPanel);
+
+		JPanel connectPanel = new JPanel();
+		JButton connectButton = new JButton("CoNnEcT bRo!");
+		connectButton.setActionCommand("connect");
+		connectButton.addActionListener(actionListener);
+		connectPanel.add(connectButton);
+		godPanel.add(connectPanel);
+
+		// jop.add(godPanel);
+		jop.showMessageDialog(null, godPanel, "Configure Connection:", -1);
+
+		//
+
 	}
-	
+
 }

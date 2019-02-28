@@ -13,16 +13,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.Vector;
 
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class QueryActionListener implements ActionListener
 {
 	private JTextField textField;
-	
-	public QueryActionListener(JTextField textField)
+	private JTable table;
+
+	public QueryActionListener(JTextField textField,  JTable table) 
 	{
 		this.textField = textField;
+		this.table = table;
 	}
 
 	public void actionPerformed(ActionEvent a) 
@@ -60,11 +64,13 @@ public class QueryActionListener implements ActionListener
 							if(query.toLowerCase().startsWith("select"))
 							{
 								ResultSet resultSet = statement.executeQuery(query);
-			
+								ResultSetMetaData metadata = resultSet.getMetaData();
+								updateTable(resultSet, metadata);
+								/*
 								while (resultSet.next()) 
 								{
 									ResultSetMetaData metadata = resultSet.getMetaData();
-				
+									
 									String data[] = new String[metadata.getColumnCount()];
 				
 									for (int i = 1; i <= metadata.getColumnCount(); i++) 
@@ -74,7 +80,7 @@ public class QueryActionListener implements ActionListener
 				
 									System.out.println(Arrays.toString(data));
 				
-								}
+								}*/
 							}
 							else
 							{
@@ -108,5 +114,26 @@ public class QueryActionListener implements ActionListener
 		}
 		
 	}
+	
+	private void updateTable(ResultSet resultSet, ResultSetMetaData setData) throws SQLException 
+	{
+		int columnCount = setData.getColumnCount();
+		Vector<String> columnNames = new Vector<>();
+		Vector<Vector<Object>> vector = new Vector<Vector<Object>>();
+		for (int i = 1; i < columnCount + 1; i++) {
+			columnNames.add(setData.getColumnName(i));
+		}
+		System.out.println(columnNames);
+		int row;
+		while (resultSet.next()) {
+			row = resultSet.getRow() - 1;
+			vector.add(new Vector<Object>());
+			for (int i = 1; i < columnCount + 1; i++) {
+				vector.get(row).add(resultSet.getObject(i));
+			}
+		}
+		ResultsTableModel model = (ResultsTableModel) this.table.getModel();
+		model.setDataVector(vector, columnNames);
+}
 
 }
