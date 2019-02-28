@@ -48,7 +48,6 @@ public class QueryUI {
 		queryFrame.add(textFieldPane);
 
 		JTable table = buildTable();
-		
 		// Define action for button press
 		QueryActionListener actionListener = new QueryActionListener(textField, table);
 
@@ -102,7 +101,6 @@ public class QueryUI {
 		JTable table = new JTable(dataModel);
 		return table;
 	}
-
 	public static void dbConnectUI() {
 		// TODO Auto-generated method stub
 		JOptionPane jop = new JOptionPane();
@@ -148,6 +146,8 @@ public class QueryUI {
 		textPanel.add(fieldFour);
 		// jop.add(textPanel);
 		godPanel.add(textPanel);
+		// Define action for button press
+		DBConnectActionListener actionListener = new DBConnectActionListener(fieldOne, fieldTwo, fieldThree, fieldFour);
 
 		JPanel radioPanel = new JPanel();
 		radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
@@ -155,6 +155,12 @@ public class QueryUI {
 		ButtonGroup dbTypes = new ButtonGroup();
 		JRadioButton sqlButton = new JRadioButton("SQL");
 		JRadioButton pgButton = new JRadioButton("PostGress");
+		sqlButton.setActionCommand("mysql");
+		sqlButton.addActionListener(actionListener);
+
+		pgButton.setActionCommand("pg");
+		pgButton.addActionListener(actionListener);
+
 		dbTypes.add(sqlButton);
 		dbTypes.add(pgButton);
 		radioPanel.add(sqlButton);
@@ -163,11 +169,16 @@ public class QueryUI {
 
 		JPanel connectPanel = new JPanel();
 		JButton connectButton = new JButton("CoNnEcT bRo!");
+		connectButton.setActionCommand("connect");
+		connectButton.addActionListener(actionListener);
 		connectPanel.add(connectButton);
 		godPanel.add(connectPanel);
 
 		// jop.add(godPanel);
-		JOptionPane.showMessageDialog(null, godPanel, "Configure Connection:", -1);
+		jop.showMessageDialog(null, godPanel, "Configure Connection:", -1);
+
+		//
+
 	}
 
 }
