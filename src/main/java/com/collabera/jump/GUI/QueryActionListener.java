@@ -94,7 +94,7 @@ public class QueryActionListener implements ActionListener
 				
 				break;
 			case "Clear":
-				textField.equals("");
+				textField.setText("");
 				break;
 		}
 		
