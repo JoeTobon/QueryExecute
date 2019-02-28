@@ -64,7 +64,6 @@ public class QueryUI
 
 		return queryFrame;
 	}
-
 	private static JPanel buildPanel(QueryActionListener qActionListener) {
 		// Panel with Buttons
 		JPanel input = new JPanel();
