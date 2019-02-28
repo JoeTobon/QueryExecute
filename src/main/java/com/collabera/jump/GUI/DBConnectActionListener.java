@@ -20,6 +20,8 @@ public class DBConnectActionListener implements ActionListener
 	private JRadioButton sqlButton;
     private JRadioButton pgButton;
     
+    String hostS, portS, userS, passS, driver = "";
+    
     public DBConnectActionListener(JTextField host, JTextField port, JTextField user, JTextField password)
     {
     	this.host = host;
@@ -31,27 +33,39 @@ public class DBConnectActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if(e.getActionCommand().equals("connect"))
+		hostS = host.getText();
+		portS = port.getText();
+		userS = user.getText();
+		passS = password.getText();
+		
+		switch(e.getActionCommand())
 		{
-			String hostS, portS, userS, passS;
-			
-			hostS = host.getText();
-			portS = port.getText();
-			userS = user.getText();
-			passS = password.getText();
-			
-			try
-			{
-				File file = new File("config.properties");
-				FileWriter fw = new FileWriter(file);
-				PrintWriter pw = new PrintWriter(fw);
-				pw.append("Hi");
+			case "mysql":
+				driver = "mysql";
+				System.out.println("button");
+				break;
 				
-			} 
-			catch (IOException e1) 
-			{
-				e1.printStackTrace();
-			}
+			case "connect":
+				try
+				{
+					File file = new File("config.properties");
+					FileWriter fw = new FileWriter(file);
+					
+					fw.write("url=jdbc:" + driver + "://" + hostS + "/" + portS);
+					fw.append("\nname=" + userS);
+					fw.append("\npassword=" + passS);
+					
+					fw.close();
+					
+					
+				} 
+				catch (IOException e1) 
+				{
+					e1.printStackTrace();
+				}
+				
+				break;
+			
 		}
 		
 	}
