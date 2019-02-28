@@ -30,6 +30,7 @@ public class QueryActionListener implements ActionListener
 		switch(a.getActionCommand())
 		{
 			case "DB":
+				QueryUI.dbConnectUI();
 				System.out.println("DB");
 				break;
 			case "Execute":	
@@ -55,23 +56,31 @@ public class QueryActionListener implements ActionListener
 			
 						try 
 						{
-			
-							ResultSet resultSet = statement.executeQuery(query);		
-			
-							while (resultSet.next()) 
+							
+							if(query.toLowerCase().startsWith("select"))
 							{
-								ResultSetMetaData metadata = resultSet.getMetaData();
+								ResultSet resultSet = statement.executeQuery(query);
 			
-								String data[] = new String[metadata.getColumnCount()];
-			
-								for (int i = 1; i <= metadata.getColumnCount(); i++) 
+								while (resultSet.next()) 
 								{
-									data[i - 1] = resultSet.getString(i);
+									ResultSetMetaData metadata = resultSet.getMetaData();
+				
+									String data[] = new String[metadata.getColumnCount()];
+				
+									for (int i = 1; i <= metadata.getColumnCount(); i++) 
+									{
+										data[i - 1] = resultSet.getString(i);
+									}
+				
+									System.out.println(Arrays.toString(data));
+				
 								}
-			
-								System.out.println(Arrays.toString(data));
-			
 							}
+							else
+							{
+								statement.execute(query);
+							}
+								
 						}
 						catch (SQLException e) 
 						{

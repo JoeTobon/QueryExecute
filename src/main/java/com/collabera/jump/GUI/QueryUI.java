@@ -5,10 +5,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class QueryUI 
@@ -33,7 +36,7 @@ public class QueryUI
 
 		// TextField Definition
 		JTextField textField = new JTextField();
-		textField.setPreferredSize(new Dimension(500, 50));
+		textField.setPreferredSize(new Dimension(450, 50));
 
 		// USE GETPARENT TO GRAB SIZE OF
 		textField.setEditable(true);
@@ -85,6 +88,74 @@ public class QueryUI
 		input.add(clearBut);
 
 		return input;
+	}
+	
+	public static void dbConnectUI() 
+	{
+		// TODO Auto-generated method stub
+		JOptionPane jop = new JOptionPane();
+		
+		jop.setSize(500, 500);
+		
+		JPanel godPanel = new JPanel();
+		godPanel.setLayout(new BoxLayout(godPanel, BoxLayout.Y_AXIS));
+		
+		JPanel textPanel = new JPanel();
+		textPanel.setLayout(new GridLayout(2, 2));
+		
+		JTextField fieldOne = new JTextField();
+        fieldOne.setEditable(true);
+        fieldOne.setSize(100, 20);
+        fieldOne.setText("");
+        JLabel labelOne = new JLabel("Host:");
+        textPanel.add(labelOne);
+        textPanel.add(fieldOne);
+        
+        JTextField fieldTwo = new JTextField();
+        fieldTwo.setEditable(true);
+        fieldTwo.setSize(100, 20);
+        fieldTwo.setText("");
+        JLabel labelTwo = new JLabel("Port:");
+        textPanel.add(labelTwo);
+        textPanel.add(fieldTwo);
+        
+        JTextField fieldThree = new JTextField();
+        fieldThree.setEditable(true);
+        fieldThree.setSize(100, 20);
+        fieldThree.setText("");
+        JLabel labelThree = new JLabel("User:");
+        textPanel.add(labelThree);
+        textPanel.add(fieldThree);
+        
+        JTextField fieldFour = new JTextField();
+        fieldFour.setEditable(true);
+        fieldFour.setSize(100, 20);
+        fieldFour.setText("");
+        JLabel labelFour = new JLabel("Password:");
+        textPanel.add(labelFour);
+        textPanel.add(fieldFour);
+        //jop.add(textPanel);
+        godPanel.add(textPanel);
+        
+        JPanel radioPanel = new JPanel();
+        radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
+        
+        ButtonGroup dbTypes = new ButtonGroup();
+        JRadioButton sqlButton = new JRadioButton("SQL");
+        JRadioButton pgButton = new JRadioButton("PostGress");
+        dbTypes.add(sqlButton);
+        dbTypes.add(pgButton);
+        radioPanel.add(sqlButton);
+        radioPanel.add(pgButton);
+        godPanel.add(radioPanel);
+        
+        JPanel connectPanel = new JPanel();
+        JButton connectButton = new JButton("CoNnEcT bRo!");
+        connectPanel.add(connectButton);
+        godPanel.add(connectPanel);
+        
+        //jop.add(godPanel);
+        jop.showMessageDialog(null, godPanel,"Configure Connection:", -1);
 	}
 	
 }
