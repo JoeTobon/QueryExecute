@@ -137,6 +137,9 @@ public class QueryUI
         //jop.add(textPanel);
         godPanel.add(textPanel);
         
+       // Define action for button press
+     	DBConnectActionListener actionListener = new DBConnectActionListener(fieldOne, fieldTwo, fieldThree, fieldFour);
+        
         JPanel radioPanel = new JPanel();
         radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
         
@@ -151,11 +154,17 @@ public class QueryUI
         
         JPanel connectPanel = new JPanel();
         JButton connectButton = new JButton("CoNnEcT bRo!");
+    	connectButton.setActionCommand("connect");
+     	connectButton.addActionListener(actionListener);
         connectPanel.add(connectButton);
         godPanel.add(connectPanel);
         
         //jop.add(godPanel);
         jop.showMessageDialog(null, godPanel,"Configure Connection:", -1);
+        
+     // 
+        
+     
 	}
 	
 }
