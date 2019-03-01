@@ -6,6 +6,16 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -45,11 +55,12 @@ public class QueryUI
         JLabel titleBarBackground = new JLabel();
         ImageIcon titleBarImg = new ImageIcon("bearlogo.png");
         titleBarBackground.setIcon(titleBarImg);
+        titleBarPanel.setBackground(new Color(216,191,216));
         
         titleBarPanel.add(titleBarBackground);
         
         JPanel titleBar = new JPanel();
-        Font font = new Font("menlo", Font.PLAIN, 15);
+        Font font = new Font("menlo", Font.BOLD, 15);
         JLabel titleLabel = new JLabel();
         titleLabel.setFont(font);
         titleBarPanel.add(titleLabel);
@@ -60,7 +71,7 @@ public class QueryUI
         
         // TextField Definition
         JLabel lab = new JLabel("Enter Query:");
-        Font resultFont = new Font("Menlo", Font.PLAIN, 14);
+        Font resultFont = new Font("Menlo", Font.BOLD, 14);
         lab.setFont(resultFont);
         
         JTextField textField = new JTextField();
@@ -70,6 +81,8 @@ public class QueryUI
         textField.setText("");
         textFieldPane.add(lab);
         textFieldPane.add(textField);
+        textFieldPane.setBackground(new Color(216,191,216));
+        
         queryFrame.add(textFieldPane);
         JTable table = buildTable();
        
@@ -82,6 +95,9 @@ public class QueryUI
         JPanel display = new JPanel();
         display.setSize(400, 400);
         queryFrame.add(display);
+        Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+        display.setBorder(loweredbevel);
+        display.setBackground(new Color(216, 191, 216));        
         
         JLabel lab1 = new JLabel("Results:");
         lab1.setFont(resultFont);
@@ -107,7 +123,7 @@ public class QueryUI
     public static JPanel buildPanel(QueryActionListener qActionListener) 
     {
         // Panel with Buttons
-        Font butFont = new Font("Menlo", Font.BOLD, 12);
+        Font butFont = new Font("Menlo", Font.BOLD, 18);
         JPanel input = new JPanel();
         input.setLayout(new GridLayout(1, 3));
         input.setMaximumSize(new Dimension(700,700));
@@ -218,10 +234,5 @@ public class QueryUI
         
         dbFrame.validate();
         return dbFrame;
-    }
-    
-    public void defaultResults()
-    {
-    	
     }
 }
