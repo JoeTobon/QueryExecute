@@ -3,9 +3,18 @@ package com.collabera.jump.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -67,11 +76,42 @@ public class DBConnectActionListener implements ActionListener
 					
 					fw.close();
 					
-					JOptionPane.showMessageDialog(null, "DB Credentials Entered!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					try 
+					{
+						Properties properties = new Properties();
+		
+						properties.load(new FileInputStream("config.properties"));
+		
+						Connection connection = DriverManager.getConnection(properties.getProperty("url"),
+								properties.getProperty("name"), properties.getProperty("password"));
+						
+						if(!connection.isValid(1))
+						{
+							JOptionPane.showMessageDialog(null, "Invalid DB Credentials!", "Alert", JOptionPane.INFORMATION_MESSAGE);					
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "DB Credentials Entered!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+						}
+					} 
+					catch (SQLException e1) 
+					{
+						JOptionPane.showMessageDialog(null, "Invalid DB Credentials!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					} 
+					catch (FileNotFoundException e1) 
+					{
+						JOptionPane.showMessageDialog(null, "DB Credential File Not Found!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					} 
+					catch (IOException e1) 
+					{
+						JOptionPane.showMessageDialog(null, "IO Exception!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					}
+					
+					
 				} 
 				catch (IOException e1) 
 				{
-					JOptionPane.showMessageDialog(null, "DB Credentials Entered!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "IO Exception!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 				break;
