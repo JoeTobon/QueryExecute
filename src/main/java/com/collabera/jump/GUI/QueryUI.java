@@ -176,9 +176,6 @@ public class QueryUI {
 
 		// jop.add(godPanel);
 		jop.showMessageDialog(null, godPanel, "Configure Connection:", -1);
-
-		//
-
 	}
 
 }
