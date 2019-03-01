@@ -17,12 +17,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
+import com.collabera.jump.GUI.ResultsTableModel;;
+
 public class QueryUI {
 	public static JFrame buildUI() {
 		// Create Frame
 		JFrame queryFrame = new JFrame();
 		queryFrame.setTitle("Query Frame");
-		queryFrame.setSize(500, 200);
+		queryFrame.setSize(600, 200);
 		queryFrame.setVisible(true);
 
 		queryFrame.setLayout(new BoxLayout(queryFrame.getContentPane(), BoxLayout.Y_AXIS));
