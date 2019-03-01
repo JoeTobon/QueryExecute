@@ -59,11 +59,12 @@ public class QueryActionListener implements ActionListener
 						String query = textField.getText();
 						
 						query = cleanString(query);
+						System.out.println(query);
 									
 						try 
 						{
 							
-							if(query.toLowerCase().startsWith("select"))
+							if(query.toLowerCase().startsWith("select") || query.toLowerCase().startsWith("show"))
 							{
 								ResultSet resultSet = statement.executeQuery(query);
 								ResultSetMetaData metadata = resultSet.getMetaData();
@@ -76,6 +77,7 @@ public class QueryActionListener implements ActionListener
 							else
 							{
 								statement.execute(query);
+								JOptionPane.showMessageDialog(null, "Query Executed!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 							}
 								
 						}
@@ -132,7 +134,10 @@ public class QueryActionListener implements ActionListener
 		}
 		
 		ResultsTableModel model = (ResultsTableModel) this.table.getModel();
+		
+		
 		model.setDataVector(vector, columnNames);
+		
 	}
 	
 	private String cleanString(String dirtyString)
@@ -141,7 +146,7 @@ public class QueryActionListener implements ActionListener
 		
 	    for(int i = 0; i < dirtyString.length(); i++)
 	    {
-	    	if(Character.isDigit(dirtyString.charAt(i)) || Character.isLetter(dirtyString.charAt(i))|| dirtyString.charAt(i) == '\'')
+	    	if(!(dirtyString.charAt(i) == '\\') && !(dirtyString.charAt(i) == '@') && !(dirtyString.charAt(i) == '$'))
 	    	{
 	    		result += dirtyString.charAt(i);
 	    	}

@@ -32,7 +32,7 @@ public class QueryUI
 	{
         JFrame queryFrame = new JFrame("<html><div style='background-image: linear-gradient(red, yellow);'></div><html>");
         queryFrame.setTitle("BEAR BITE PRESENTS");
-        queryFrame.setSize(600, 500);
+        queryFrame.setSize(600, 550);
         queryFrame.setVisible(true);
         queryFrame.setLayout(new BoxLayout(queryFrame.getContentPane(), BoxLayout.Y_AXIS));
         
@@ -166,7 +166,7 @@ public class QueryUI
         fieldTwo.setPreferredSize(new Dimension(50, 20));
         fieldTwo.setText("");
         
-        JLabel labelTwo = new JLabel("<html><div><span style = 'font-family:menlo;'>Port (3306/<DB Name>): </span></div><html>");
+        JLabel labelTwo = new JLabel("<html><div><span style = 'font-family:menlo;'>Port (3306/[DB Name]): </span></div><html>");
         textPanel.add(labelTwo);
         textPanel.add(fieldTwo);
         
@@ -218,5 +218,10 @@ public class QueryUI
         
         dbFrame.validate();
         return dbFrame;
+    }
+    
+    public void defaultResults()
+    {
+    	
     }
 }
