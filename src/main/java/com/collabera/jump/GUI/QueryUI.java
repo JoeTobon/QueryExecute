@@ -26,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -195,7 +196,7 @@ public class QueryUI
         textPanel.add(labelThree);
         textPanel.add(fieldThree);
        
-        JTextField fieldFour = new JTextField();
+        JPasswordField fieldFour = new JPasswordField();
         fieldFour.setEditable(true);
         fieldFour.setPreferredSize(new Dimension(50, 20));
         fieldFour.setText("");
