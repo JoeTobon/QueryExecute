@@ -57,8 +57,9 @@ public class QueryActionListener implements ActionListener
 						Statement statement = connection.createStatement();
 						
 						String query = textField.getText();
-						System.out.println(query);
-			
+						
+						query = cleanString(query);
+									
 						try 
 						{
 							
@@ -67,6 +68,10 @@ public class QueryActionListener implements ActionListener
 								ResultSet resultSet = statement.executeQuery(query);
 								ResultSetMetaData metadata = resultSet.getMetaData();
 								updateTable(resultSet, metadata);
+							}
+							else if(query.toLowerCase().startsWith("drop"))
+							{
+								JOptionPane.showMessageDialog(null, "Invalid SQL Query: No Drop Statements!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 							}
 							else
 							{
@@ -107,20 +112,42 @@ public class QueryActionListener implements ActionListener
 		int columnCount = setData.getColumnCount();
 		Vector<String> columnNames = new Vector<>();
 		Vector<Vector<Object>> vector = new Vector<Vector<Object>>();
-		for (int i = 1; i < columnCount + 1; i++) {
+		
+		for (int i = 1; i < columnCount + 1; i++)
+		{
 			columnNames.add(setData.getColumnName(i));
 		}
-		System.out.println(columnNames);
+		
 		int row;
-		while (resultSet.next()) {
+		
+		while (resultSet.next()) 
+		{
 			row = resultSet.getRow() - 1;
 			vector.add(new Vector<Object>());
-			for (int i = 1; i < columnCount + 1; i++) {
+			
+			for (int i = 1; i < columnCount + 1; i++) 
+			{
 				vector.get(row).add(resultSet.getObject(i));
 			}
 		}
+		
 		ResultsTableModel model = (ResultsTableModel) this.table.getModel();
 		model.setDataVector(vector, columnNames);
+	}
+	
+	private String cleanString(String dirtyString)
+	{
+		String result = "";
+		
+	    for(int i = 0; i < dirtyString.length(); i++)
+	    {
+	    	if(Character.isDigit(dirtyString.charAt(i)) || Character.isLetter(dirtyString.charAt(i))|| dirtyString.charAt(i) == '\'')
+	    	{
+	    		result += dirtyString.charAt(i);
+	    	}
+	    }
+	    
+	    return result;
+	}
 }
 
-}

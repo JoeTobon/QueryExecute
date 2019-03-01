@@ -1,5 +1,8 @@
 package com.collabera.jump.QueryExecute;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import com.collabera.jump.GUI.QueryUI;
 
 /**
@@ -8,8 +11,8 @@ import com.collabera.jump.GUI.QueryUI;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException
+    {    
     	QueryUI.buildUI();
     }
 }
