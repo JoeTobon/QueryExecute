@@ -45,6 +45,10 @@ public class DBConnectActionListener implements ActionListener
 				driver = "mysql";
 				break;
 				
+			case "pg":
+				driver = "postgresql";
+				break;
+				
 			case "connect":
 				try
 				{
