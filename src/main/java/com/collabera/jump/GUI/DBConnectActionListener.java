@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -42,7 +43,6 @@ public class DBConnectActionListener implements ActionListener
 		{
 			case "mysql":
 				driver = "mysql";
-				System.out.println("button");
 				break;
 				
 			case "connect":
@@ -51,17 +51,23 @@ public class DBConnectActionListener implements ActionListener
 					File file = new File("config.properties");
 					FileWriter fw = new FileWriter(file);
 					
-					fw.write("url=jdbc:" + driver + "://" + hostS + "/" + portS);
+					if(hostS.isBlank() || portS.isBlank() || userS.isBlank() || passS.isBlank() || driver.isBlank())
+					{
+						JOptionPane.showMessageDialog(null, "Please fill every field!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+						break;
+					}
+					
+					fw.write("url=jdbc:" + driver + "://" + hostS + ":" + portS);
 					fw.append("\nname=" + userS);
 					fw.append("\npassword=" + passS);
 					
 					fw.close();
 					
-					
+					JOptionPane.showMessageDialog(null, "DB Credentials Entered!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 				} 
 				catch (IOException e1) 
 				{
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "DB Credentials Entered!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 				break;

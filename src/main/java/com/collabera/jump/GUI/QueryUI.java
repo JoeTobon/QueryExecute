@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,13 +17,16 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.TableModel;
 
-public class QueryUI {
-	public static JFrame buildUI() {
+public class QueryUI 
+{
+	public static JFrame buildUI()
+	{
 		// Create Frame
 		JFrame queryFrame = new JFrame();
-		queryFrame.setTitle("Query Frame");
+		queryFrame.setTitle("Bear Bite DB");
 		queryFrame.setSize(500, 400);
 		queryFrame.setVisible(true);
 		queryFrame.setLayout(new BoxLayout(queryFrame.getContentPane(), BoxLayout.Y_AXIS));
@@ -32,7 +36,8 @@ public class QueryUI {
 
 		JPanel titleBar = new JPanel();
 		titleBar.setPreferredSize(new Dimension(600, 35));
-		JLabel titleLabel = new JLabel("BEAR'S DATABASE MANAGEMENT GUI");
+		//titleBar.add(new JLabel(new ImageIcon("C:\\Users\\Joe\\Pictures\\bearlogo.jpg")));
+		JLabel titleLabel = new JLabel("Enter Query:");
 		titleBar.add(titleLabel);
 		queryFrame.add(titleBar);
 
@@ -62,8 +67,9 @@ public class QueryUI {
 		JPanel display = new JPanel();
 		display.setSize(400, 400);
 
+		
 		queryFrame.add(display);
-		JLabel lab1 = new JLabel("RESULTS");
+		JLabel lab1 = new JLabel("Results:");
 		display.add(lab1);
 
 		queryFrame.add(new JScrollPane(table));
@@ -74,14 +80,16 @@ public class QueryUI {
 		return queryFrame;
 	}
 
-	private static JTable buildTable() {
+	private static JTable buildTable() 
+	{
 		// TODO Auto-generated method stub
 		TableModel dataModel = new ResultsTableModel(0, 0);
 		JTable table = new JTable(dataModel);
 		return table;
 	}
 
-	private static JPanel buildPanel(QueryActionListener qActionListener) {
+	private static JPanel buildPanel(QueryActionListener qActionListener) 
+	{
 		// Panel with Buttons
 		JPanel input = new JPanel();
 		input.setLayout(new GridLayout(1, 3));
@@ -106,85 +114,92 @@ public class QueryUI {
 		return input;
 	}
 
-	public static void dbConnectUI() {
-		// TODO Auto-generated method stub
-		JOptionPane jop = new JOptionPane();
+	public static JFrame dbConnectUI() {
+	       // TODO Auto-generated method stub
+	       JFrame dbFrame = new JFrame();
+	       dbFrame.setTitle("Connect");
+	       dbFrame.setSize(400, 300);
+	       dbFrame.setVisible(true);
+	       dbFrame.setLayout(new BoxLayout(dbFrame.getContentPane(), BoxLayout.Y_AXIS));
 
-		jop.setSize(500, 500);
+	       Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	       dbFrame.setLocation(dim.width/2-dbFrame.getSize().width/2, dim.height/2-dbFrame.getSize().height/2);
 
-		JPanel godPanel = new JPanel();
-		godPanel.setLayout(new BoxLayout(godPanel, BoxLayout.Y_AXIS));
+	       JPanel godPanel = new JPanel();
+	       godPanel.setLayout(new BoxLayout(godPanel, BoxLayout.Y_AXIS));
 
-		JPanel textPanel = new JPanel();
-		textPanel.setLayout(new GridLayout(2, 2));
+	       JPanel textPanel = new JPanel();
+	       textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+	       //textPanel.setSize(10, 50);
 
-		JTextField fieldOne = new JTextField();
-		fieldOne.setEditable(true);
-		fieldOne.setSize(100, 20);
-		fieldOne.setText("");
-		JLabel labelOne = new JLabel("Host:");
-		textPanel.add(labelOne);
-		textPanel.add(fieldOne);
+	       JTextField fieldOne = new JTextField();
+	       fieldOne.setEditable(true);
+	       fieldOne.setText("");
+	       JLabel labelOne = new JLabel("<html><div><span style = ‘font-family:menlo; padding:100px;’>Host:</span></div><html>");
+	       //JLabel labelOne = new JLabel(“Host:“);
+	       textPanel.add(labelOne);
+	       textPanel.add(fieldOne);
 
-		JTextField fieldTwo = new JTextField();
-		fieldTwo.setEditable(true);
-		fieldTwo.setSize(100, 20);
-		fieldTwo.setText("");
-		JLabel labelTwo = new JLabel("Port:");
-		textPanel.add(labelTwo);
-		textPanel.add(fieldTwo);
 
-		JTextField fieldThree = new JTextField();
-		fieldThree.setEditable(true);
-		fieldThree.setSize(100, 20);
-		fieldThree.setText("");
-		JLabel labelThree = new JLabel("User:");
-		textPanel.add(labelThree);
-		textPanel.add(fieldThree);
+	       JTextField fieldTwo = new JTextField();
+	       fieldTwo.setEditable(true);
+	       fieldTwo.setPreferredSize(new Dimension(50, 20));
+	       fieldTwo.setText("");
+	       JLabel labelTwo = new JLabel("Port:");
+	       textPanel.add(labelTwo);
+	       textPanel.add(fieldTwo);
 
-		JTextField fieldFour = new JTextField();
-		fieldFour.setEditable(true);
-		fieldFour.setSize(100, 20);
-		fieldFour.setText("");
-		JLabel labelFour = new JLabel("Password:");
-		textPanel.add(labelFour);
-		textPanel.add(fieldFour);
-		// jop.add(textPanel);
-		godPanel.add(textPanel);
+	       JTextField fieldThree = new JTextField();
+	       fieldThree.setEditable(true);
+	       fieldThree.setPreferredSize(new Dimension(50, 20));
+	       fieldThree.setText("");
+	       JLabel labelThree = new JLabel("User:");
+	       textPanel.add(labelThree);
+	       textPanel.add(fieldThree);
 
-		// Define action for button press
-		DBConnectActionListener actionListener = new DBConnectActionListener(fieldOne, fieldTwo, fieldThree, fieldFour);
+	       JTextField fieldFour = new JTextField();
+	       fieldFour.setEditable(true);
+	       fieldFour.setPreferredSize(new Dimension(50, 20));
+	       fieldFour.setText("");
+	       JLabel labelFour = new JLabel("Password:");
+	       textPanel.add(labelFour);
+	       textPanel.add(fieldFour);
+	       // jop.add(textPanel);
+	       godPanel.add(textPanel);
 
-		JPanel radioPanel = new JPanel();
-		radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
+	       // Define action for button press
+	       DBConnectActionListener actionListener = new DBConnectActionListener(fieldOne, fieldTwo, fieldThree, fieldFour);
 
-		ButtonGroup dbTypes = new ButtonGroup();
-		JRadioButton sqlButton = new JRadioButton("SQL");
-		JRadioButton pgButton = new JRadioButton("PostGress");
-		sqlButton.setActionCommand("mysql");
-		sqlButton.addActionListener(actionListener);
+	       JPanel radioPanel = new JPanel();
+	       radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
 
-		pgButton.setActionCommand("pg");
-		pgButton.addActionListener(actionListener);
+	       ButtonGroup dbTypes = new ButtonGroup();
+	       JRadioButton sqlButton = new JRadioButton("SQL");
+	       //JRadioButton pgButton = new JRadioButton("PostGress");
+	       sqlButton.setActionCommand("mysql");
+	       sqlButton.addActionListener(actionListener);
 
-		dbTypes.add(sqlButton);
-		dbTypes.add(pgButton);
-		radioPanel.add(sqlButton);
-		radioPanel.add(pgButton);
-		godPanel.add(radioPanel);
+	       //pgButton.setActionCommand("pg");
+	       //pgButton.addActionListener(actionListener);
 
-		JPanel connectPanel = new JPanel();
-		JButton connectButton = new JButton("Connect");
-		connectButton.setActionCommand("connect");
-		connectButton.addActionListener(actionListener);
-		connectPanel.add(connectButton);
-		godPanel.add(connectPanel);
+	       dbTypes.add(sqlButton);
+	      // dbTypes.add(pgButton);
+	       radioPanel.add(sqlButton);
+	       //radioPanel.add(pgButton);
+	       godPanel.add(radioPanel);
 
-		// jop.add(godPanel);
-		jop.showMessageDialog(null, godPanel, "Configure Connection:", -1);
+	       JPanel connectPanel = new JPanel();
+	       JButton connectButton = new JButton("Connect");
+	       connectButton.setActionCommand("connect");
+	       connectButton.addActionListener(actionListener);
+	       connectPanel.add(connectButton);
+	       godPanel.add(connectPanel);
 
-		//
+	       dbFrame.add(godPanel);
 
-	}
+	       dbFrame.validate();
 
+	       return dbFrame;
+
+	   }
 }

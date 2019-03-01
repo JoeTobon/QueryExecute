@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -35,8 +36,8 @@ public class QueryActionListener implements ActionListener
 		{
 			case "DB":
 				QueryUI.dbConnectUI();
-				System.out.println("DB");
 				break;
+				
 			case "Execute":	
 				try 
 				{
@@ -49,7 +50,7 @@ public class QueryActionListener implements ActionListener
 					
 					if(!connection.isValid(1))
 					{
-						System.out.println("Please re-enter credentials!");						
+						JOptionPane.showMessageDialog(null, "Invalid DB Credentials!", "Alert", JOptionPane.INFORMATION_MESSAGE);					
 					}
 					else
 					{
@@ -66,21 +67,6 @@ public class QueryActionListener implements ActionListener
 								ResultSet resultSet = statement.executeQuery(query);
 								ResultSetMetaData metadata = resultSet.getMetaData();
 								updateTable(resultSet, metadata);
-								/*
-								while (resultSet.next()) 
-								{
-									ResultSetMetaData metadata = resultSet.getMetaData();
-									
-									String data[] = new String[metadata.getColumnCount()];
-				
-									for (int i = 1; i <= metadata.getColumnCount(); i++) 
-									{
-										data[i - 1] = resultSet.getString(i);
-									}
-				
-									System.out.println(Arrays.toString(data));
-				
-								}*/
 							}
 							else
 							{
@@ -90,24 +76,25 @@ public class QueryActionListener implements ActionListener
 						}
 						catch (SQLException e) 
 						{
-							System.out.println("Invalid SQL Query!");
+							JOptionPane.showMessageDialog(null, "Invalid SQL Query!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				} 
 				catch (SQLException e) 
 				{
-					System.out.println("Invalid DB credentials. Re-enter!");
+					JOptionPane.showMessageDialog(null, "Invalid DB Credentials!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 				} 
 				catch (FileNotFoundException e) 
 				{
-					System.out.println("File not found!");
+					JOptionPane.showMessageDialog(null, "DB Credential File Not Found!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 				} 
 				catch (IOException e) 
 				{
-					System.out.println("IO exception");
+					JOptionPane.showMessageDialog(null, "IO Exception!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 				break;
+				
 			case "Clear":
 				textField.setText("");
 				break;
