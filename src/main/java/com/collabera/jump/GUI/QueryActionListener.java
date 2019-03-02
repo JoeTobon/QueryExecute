@@ -66,10 +66,6 @@ public class QueryActionListener implements ActionListener
 								ResultSetMetaData metadata = resultSet.getMetaData();
 								updateTable(resultSet, metadata);
 							}
-							else if(query.toLowerCase().startsWith("drop"))
-							{
-								JOptionPane.showMessageDialog(null, "Invalid SQL Query: No Drop Statements!", "Alert", JOptionPane.INFORMATION_MESSAGE);
-							}
 							else
 							{
 								statement.execute(query);
@@ -138,7 +134,7 @@ public class QueryActionListener implements ActionListener
 		
 	    for(int i = 0; i < dirtyString.length(); i++)
 	    {
-	    	if(!(dirtyString.charAt(i) == '\\') && !(dirtyString.charAt(i) == '@') && !(dirtyString.charAt(i) == '$'))
+	    	if(!(dirtyString.charAt(i) == '\\'))
 	    	{
 	    		result += dirtyString.charAt(i);
 	    	}
