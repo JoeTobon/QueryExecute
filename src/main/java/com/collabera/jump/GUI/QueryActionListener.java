@@ -15,9 +15,12 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import com.collabera.jump.Connection.DBConnection;
 
 public class QueryActionListener implements ActionListener
 {
@@ -38,23 +41,16 @@ public class QueryActionListener implements ActionListener
 				QueryUI.dbConnectUI();
 				break;
 				
-			case "Execute":	
+			case "Execute":		
 				try 
 				{
-					Properties properties = new Properties();
-	
-					properties.load(new FileInputStream("config.properties"));
-	
-					Connection connection = DriverManager.getConnection(properties.getProperty("url"),
-							properties.getProperty("name"), properties.getProperty("password"));
-					
-					if(!connection.isValid(1))
+					if(!DBConnection.getConnection().isValid(1))
 					{
 						JOptionPane.showMessageDialog(null, "Invalid DB Credentials!", "Alert", JOptionPane.INFORMATION_MESSAGE);					
 					}
 					else
 					{
-						Statement statement = connection.createStatement();
+						Statement statement = DBConnection.getConnection().createStatement();
 						
 						String query = textField.getText();
 						
@@ -90,14 +86,10 @@ public class QueryActionListener implements ActionListener
 				catch (SQLException e) 
 				{
 					JOptionPane.showMessageDialog(null, "Invalid DB Credentials!", "Alert", JOptionPane.INFORMATION_MESSAGE);
-				} 
-				catch (FileNotFoundException e) 
+				}
+				catch(NullPointerException e)
 				{
-					JOptionPane.showMessageDialog(null, "DB Credential File Not Found!", "Alert", JOptionPane.INFORMATION_MESSAGE);
-				} 
-				catch (IOException e) 
-				{
-					JOptionPane.showMessageDialog(null, "IO Exception!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Please Enter DB Credentials!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 				break;

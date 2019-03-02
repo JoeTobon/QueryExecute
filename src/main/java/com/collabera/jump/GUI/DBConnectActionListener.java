@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import com.collabera.jump.Connection.DBConnection;
+
 public class DBConnectActionListener implements ActionListener
 {
 	private JTextField host;
@@ -91,6 +93,8 @@ public class DBConnectActionListener implements ActionListener
 						}
 						else
 						{
+							DBConnection.setConnection(DriverManager.getConnection(properties.getProperty("url"),
+								properties.getProperty("name"), properties.getProperty("password")));
 							JOptionPane.showMessageDialog(null, "DB Credentials Entered!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} 

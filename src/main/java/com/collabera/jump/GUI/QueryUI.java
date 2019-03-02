@@ -183,7 +183,7 @@ public class QueryUI
         fieldTwo.setPreferredSize(new Dimension(50, 20));
         fieldTwo.setText("");
         
-        JLabel labelTwo = new JLabel("<html><div><span style = 'font-family:menlo;'>Port (3306/[DB Name]): </span></div><html>");
+        JLabel labelTwo = new JLabel("<html><div><span style = 'font-family:menlo;'>Port: </span></div><html>");
         textPanel.add(labelTwo);
         textPanel.add(fieldTwo);
         
