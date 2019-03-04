@@ -73,6 +73,14 @@ public class QueryActionListener implements ActionListener
 								
 								String table[] = query.split(" ");
 								
+								if(query.toLowerCase().startsWith("use"))
+								{
+									String newQuery = "show tables";
+									
+									ResultSet resultSet = statement.executeQuery(newQuery);
+									ResultSetMetaData metadata = resultSet.getMetaData();
+									updateTable(resultSet, metadata);
+								}
 								if(query.toLowerCase().startsWith("update") )
 								{
 									String t = table[1];
