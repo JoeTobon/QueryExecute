@@ -43,7 +43,7 @@ public class QueryUI
 	{
         JFrame queryFrame = new JFrame("<html><div style='background-image: linear-gradient(red, yellow);'></div><html>");
         queryFrame.setTitle("BEAR BITE PRESENTS");
-        queryFrame.setSize(600, 550);
+        queryFrame.setSize(533, 650);
         queryFrame.setVisible(true);
         queryFrame.setLayout(new BoxLayout(queryFrame.getContentPane(), BoxLayout.Y_AXIS));
         
@@ -51,20 +51,37 @@ public class QueryUI
         queryFrame.setLocation(dim.width/2-queryFrame.getSize().width/2, dim.height/2-queryFrame.getSize().height/2);
         
         JPanel titleBarPanel = new JPanel();
+        titleBarPanel.setLayout(new BoxLayout(titleBarPanel, 0));
+        titleBarPanel.setPreferredSize(new Dimension(queryFrame.getWidth(), 200));
+        //titleBarPanel.setAlignmentX(100);
         
-        titleBarPanel.setSize(10,10);
+        JLabel gifBar = new JLabel();
+        gifBar.setPreferredSize(new Dimension(queryFrame.getWidth(), titleBarPanel.getHeight()));
+        gifBar.setAlignmentX(0);
+        gifBar.setBackground(Color.black);
+        
+        ImageIcon matrixGif = new ImageIcon("matrixRain.gif");
+        gifBar.setIcon(matrixGif);
+ 
+        titleBarPanel.add(gifBar);
+        
         JLabel titleBarBackground = new JLabel();
-        ImageIcon titleBarImg = new ImageIcon("bearlogo.png");
-        titleBarBackground.setIcon(titleBarImg);
-        titleBarPanel.setBackground(new Color(216,191,216));
+        //ImageIcon titleBarImg = new ImageIcon("bearlogo.png");
+        titleBarBackground.setBackground(Color.black);
+        //titleBarBackground.setSize(600, 50);
+        gifBar.add(titleBarBackground);
+        titleBarPanel.add(titleBarBackground);
+     
         
+        
+        //titleBarBackground.setIcon(titleBarImg);
         titleBarPanel.add(titleBarBackground);
         
-        JPanel titleBar = new JPanel();
-        Font font = new Font("menlo", Font.BOLD, 15);
-        JLabel titleLabel = new JLabel();
-        titleLabel.setFont(font);
-        titleBarPanel.add(titleLabel);
+//        JPanel titleBar = new JPanel();
+//        Font font = new Font("menlo", Font.BOLD, 15);
+//        JLabel titleLabel = new JLabel();
+//        titleLabel.setFont(font);
+//        titleBarPanel.add(titleLabel);
         
         queryFrame.add(titleBarPanel);
         JPanel textFieldPane = new JPanel();
@@ -72,7 +89,8 @@ public class QueryUI
         
         // TextField Definition
         JLabel lab = new JLabel("Enter Query:");
-        Font resultFont = new Font("Menlo", Font.BOLD, 14);
+        Font resultFont = new Font("Trebuchet MS Header", Font.BOLD, 18);
+        lab.setForeground(Color.green);
         lab.setFont(resultFont);
         
         JTextField textField = new JTextField();
@@ -80,9 +98,10 @@ public class QueryUI
         textField.setEditable(true);
         textField.setVisible(true);
         textField.setText("");
+        textField.setBackground(new Color(255,248,220));
         textFieldPane.add(lab);
         textFieldPane.add(textField);
-        textFieldPane.setBackground(new Color(216,191,216));
+        textFieldPane.setBackground(new Color(0,0,0));
         
         queryFrame.add(textFieldPane);
         JTable table = buildTable();
@@ -98,10 +117,11 @@ public class QueryUI
         queryFrame.add(display);
         Border loweredbevel = BorderFactory.createLoweredBevelBorder();
         display.setBorder(loweredbevel);
-        display.setBackground(new Color(216, 191, 216));        
+        display.setBackground(new Color(0,0,0));        
         
         JLabel lab1 = new JLabel("Results:");
         lab1.setFont(resultFont);
+        lab1.setForeground(Color.green);
         display.add(lab1);
         queryFrame.add(new JScrollPane(table));
         

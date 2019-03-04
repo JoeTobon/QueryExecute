@@ -88,6 +88,7 @@ public class QueryActionListener implements ActionListener
 					JOptionPane.showMessageDialog(null, "Please Enter DB Credentials!", "Alert", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
+				textField.setText("");
 				break;
 				
 			case "Clear":
