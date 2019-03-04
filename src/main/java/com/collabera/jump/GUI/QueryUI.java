@@ -165,7 +165,7 @@ public class QueryUI
         exeBut.addActionListener(qActionListener);
         input.add(exeBut);
         
-        JButton clearBut = new JButton("Clear");
+        JButton clearBut = new JButton("Clear Query");
         clearBut.setFont(butFont);
         clearBut.setBorder(rb);
         clearBut.setActionCommand("Clear");
@@ -232,16 +232,16 @@ public class QueryUI
         radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
         ButtonGroup dbTypes = new ButtonGroup();
         
-        JRadioButton sqlButton = new JRadioButton("SQL");
-        JRadioButton pgButton = new JRadioButton("PostGress");
+        JRadioButton sqlButton = new JRadioButton("MySQL");
+        //JRadioButton pgButton = new JRadioButton("PostGress");
         sqlButton.setActionCommand("mysql");
         sqlButton.addActionListener(actionListener);
-        pgButton.setActionCommand("pg");
-        pgButton.addActionListener(actionListener);
+       /*pgButton.setActionCommand("pg");
+        pgButton.addActionListener(actionListener);*/
         dbTypes.add(sqlButton);
-        dbTypes.add(pgButton);
+       // dbTypes.add(pgButton);
         radioPanel.add(sqlButton);
-        radioPanel.add(pgButton);
+        //radioPanel.add(pgButton);
         godPanel.add(radioPanel);
         
         JPanel connectPanel = new JPanel();

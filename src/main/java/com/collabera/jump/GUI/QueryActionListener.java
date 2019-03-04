@@ -70,6 +70,28 @@ public class QueryActionListener implements ActionListener
 							{
 								statement.execute(query);
 								JOptionPane.showMessageDialog(null, "Query Executed!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+								
+								String table[] = query.split(" ");
+								
+								if(query.toLowerCase().startsWith("update") )
+								{
+									String t = table[1];
+									String newQuery = "select * from " + t;
+									
+									ResultSet resultSet = statement.executeQuery(newQuery);
+									ResultSetMetaData metadata = resultSet.getMetaData();
+									updateTable(resultSet, metadata);
+								}
+								else if(query.toLowerCase().startsWith("insert") || query.toLowerCase().startsWith("delete"))
+								{
+									String t = table[2];
+									
+									String newQuery = "select * from " + t;
+									
+									ResultSet resultSet = statement.executeQuery(newQuery);
+									ResultSetMetaData metadata = resultSet.getMetaData();
+									updateTable(resultSet, metadata);
+								}
 							}
 								
 						}
